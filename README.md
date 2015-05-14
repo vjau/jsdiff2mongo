@@ -38,3 +38,8 @@ You get an array which you can apply to minimongo with
 	Mongo.Collection.prototype.update.apply(diff);
 
 0r you can use the helper package vjau:mongo-extend which does all that for you
+
+## Limitations
+
+Methods are ignored (not serializable by Mongo)
+Arrays with variations are replaced in place instead of complicated addtoset queries
