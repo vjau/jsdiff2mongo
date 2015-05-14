@@ -19,23 +19,33 @@ The package exports a single function jsDiff2mongo(oldObject, newObject)
 
 Let say you have an object from minimongo
 
-	var oldObj = Coll.findOne({});
-	console.log(oldObj);
-	// {_id:"xyz123", a:1}
+```js
+var oldObj = Coll.findOne({});
+console.log(oldObj);
+// {_id:"xyz123", a:1}
+```
+
 Now you do some modifications
 
-	var newObj = _.clone(oldObj);
-	newObj.b = 2;
+```js
+var newObj = _.clone(oldObj);
+newObj.b = 2;
+```
 
 And call the comparison function
 
-	var diff = jsDiff2Mongo(oldObj, newObj);
-	console.log(diff);
-	//[{_id:"xyz123"},{"$set":{b:2}}]
+```js
+var diff = jsDiff2Mongo(oldObj, newObj);
+console.log(diff);
+//[{_id:"xyz123"},{"$set":{b:2}}]
+```
 
 You get an array which you can apply to minimongo with
 
-	Mongo.Collection.prototype.update.apply(diff);
+```js
+Mongo.Collection.prototype.update.apply(diff);
+```
+
 
 0r you can use the helper package vjau:mongo-extend which does all that for you
 
