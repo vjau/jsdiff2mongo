@@ -1,7 +1,7 @@
 Package.describe({
   name: 'vjau:jsdiff2mongo',
-  summary: ' Compares two objects an returns a diff with a mongo update query ',
-  version: '1.0.0',
+  summary: ' Compares two objects and returns a diff with a mongo update query ',
+  version: '1.0.2',
   git: ' https://github.com/vjau/jsdiff2mongo '
 });
 
