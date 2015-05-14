@@ -42,4 +42,5 @@ You get an array which you can apply to minimongo with
 ## Limitations
 
 Methods are ignored (not serializable by Mongo)
+
 Arrays with variations are replaced in place instead of complicated addtoset queries
