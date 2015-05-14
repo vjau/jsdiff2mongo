@@ -4,10 +4,10 @@ Meteor package that compares two objects with the same _id in a before and after
 
 ## Why this package ?
 
-Sometimes it's practical to get an object from the database, modify the object and updating the database directly with the modified object.
-However on the client, minimongo doesn't allow to do that since collections on the client could be filtered through publications. Hence minimongo update operation only allow to field modifications, not objects replacement.
+Sometimes it's practical to get an object from the database, modify the object and put it back directly in the database.
+However minimongo doesn't allow to do that since collections on the client could be filtered through publications, hence minimongo update operation only allow fields modifications, not objects replacement.
 
-This package solves this problem by building the appropriate update operation to go from oldObject to newObject.
+This package solves this problem by building the appropriate update query to go from oldObject to newObject.
 
 ## Installation
 
