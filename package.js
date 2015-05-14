@@ -1,6 +1,6 @@
 Package.describe({
-  name: 'vjau:jsondiff2mongo',
-  summary: ' /* Fill me in! */ ',
+  name: 'vjau:jsdiff2mongo',
+  summary: ' Compares two objects an returns a diff with a mongo update query ',
   version: '1.0.0',
   git: ' /* Fill me in! */ '
 });
@@ -8,12 +8,12 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0.2.1');
   api.use('underscore');
-  api.addFiles('jsondiff2mongo.js');
+  api.addFiles('jsdiff2mongo.js');
   api.export('jsDiff2Mongo');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('jsondiff2mongo');
-  api.addFiles('vjau:jsondiff2mongo-tests.js');
+  api.use('vjau:jsdiff2mongo');
+  api.addFiles('jsdiff2mongo-tests.js');
 });
