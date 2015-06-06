@@ -10,14 +10,22 @@ jsDiff2Mongo = function (objBefore, objAfter) {
     throw new Error("the two objects have different _id");
   }
 
-  objBefore = JSON.parse(JSON.stringify(objBefore));
-  objAfter = JSON.parse(JSON.stringify(objAfter));
+  //objBefore = JSON.parse(JSON.stringify(objBefore));
+  //objAfter = JSON.parse(JSON.stringify(objAfter));
 
   var akeys = Object.keys(objBefore);
   var bkeys = Object.keys(objAfter);
 
   akeys = _.without(akeys, "_id");
   bkeys = _.without(bkeys, "_id");
+
+  akeys = akeys.filter(function(key){
+    return !_.isFunction(objBefore[key]);
+  });
+
+  bkeys = bkeys.filter(function(key){
+    return !_.isFunction(objAfter[key]);
+  });
 
   var keysToUnset = _.difference(akeys, bkeys);
   var keysToSet = _.difference(bkeys, akeys);

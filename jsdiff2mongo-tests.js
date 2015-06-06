@@ -28,3 +28,49 @@ Tinytest.add("methods must be ignored", function(test){
   var result = jsDiff2Mongo({_id:"axz1", a:1, foo:function(){console.log();}},{_id:"axz1", a:1});
   test.equal(result,[]);
 });
+
+Tinytest.add("Special types must be preserved", function(test){
+  function FooType(param){
+    this.foo = "foo";
+    this.param = param;
+  }
+  FooType.prototype.getFoo = function(){
+    return this.foo;
+  };
+  var objA = {_id:"axz1", foo: new FooType("bar")};
+  var objB = {_id:"axz1"};
+  var result = jsDiff2Mongo(objB, objA);
+  console.log("result", result);
+  test.equal(result,[{"_id":"axz1"},{"$set":{"foo":new FooType("bar")}}]);
+});
+
+Tinytest.add("EJSON custom types must be preserved", function(test){
+  function FooType(param){
+    this.foo = "foo";
+    this.param = param;
+  }
+  FooType.prototype.getFoo = function(){
+    return this.foo;
+  };
+  FooType.prototype.typeName = function(){
+    return "FooType";
+  };
+  FooType.prototype.toJSONValue = function(){
+    return {foo: this.foo, param: this.param};
+  };
+  FooType.prototype.clone = function(){
+    return new FooType(this.param);
+  };
+  FooType.prototype.equals = function(obj){
+    return this.param === obj.param;
+  };
+  EJSON.addType("FooType", function(jsonObj){
+    return new FooType(jsonObj.param);
+  });
+
+  var objA = {_id:"axz1", foo: new FooType("bar")};
+  var objB = {_id:"axz1"};
+  var result = jsDiff2Mongo(objB, objA);
+  console.log("result", result);
+  test.equal(result,[{"_id":"axz1"},{"$set":{"foo":new FooType("bar")}}]);
+});
